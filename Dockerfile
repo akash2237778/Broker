@@ -35,6 +35,17 @@ RUN cd /app \
   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
   $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
   && apt-get update \
-  && apt-get install -y docker-ce docker-ce-cli containerd.io
-
-CMD ["bash", "-c", "cd /app/broker; python app.py"]
+  && apt-get install -y docker-ce docker-ce-cli containerd.io \ 
+  && apt-get clean -y &&                                               \
+  rm -rf                                                            \
+       /var/cache/debconf/*                                           \
+       /var/lib/apt/lists/*                                           \
+       /var/log/*                                                     \
+       /tmp/*                                                         \
+       /var/tmp/*                                                     \
+       /usr/share/doc/*                                               \
+       /usr/share/man/*                                               \
+       /usr/share/local/*       \
+  && chmod +x /app/run.sh
+                                                                      
+CMD /app/run.sh

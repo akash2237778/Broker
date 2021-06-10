@@ -12,9 +12,9 @@ from broker.errors.exceptions import (
     URLNotFound,
     BadRequest,
 )
-from broker.ga4gh.broker.endpoints.projects import (
-    register_project
-)
+# from broker.ga4gh.broker.endpoints.projects import (
+#     register_project
+# )
 
 @log_traffic
 def getProjects():
@@ -22,7 +22,8 @@ def getProjects():
 
 @log_traffic
 def postProjects():
-    return register_project(data=request.json)
+    #return register_project(data=request.json)
+    return {'projectId':'project_12'}
 
 @log_traffic
 def postBuild(projectId: str):

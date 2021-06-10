@@ -1,6 +1,7 @@
 """Controllers for broker endpoints"""
 
 from flask import (current_app, make_response)
+from flask.globals import request
 
 from foca.utils.logging import log_traffic
 
@@ -11,6 +12,9 @@ from broker.errors.exceptions import (
     URLNotFound,
     BadRequest,
 )
+from broker.ga4gh.broker.endpoints.projects import (
+    register_project
+)
 
 @log_traffic
 def getProjects():
@@ -18,7 +22,7 @@ def getProjects():
 
 @log_traffic
 def postProjects():
-    return "Template function: postProjects"
+    return register_project(data=request.json)
 
 @log_traffic
 def postBuild(projectId: str):
